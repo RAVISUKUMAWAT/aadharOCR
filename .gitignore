@@ -31,4 +31,4 @@ env/
 db.sqlite3
 
 # Static files
-# temp/
+temp/

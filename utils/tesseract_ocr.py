@@ -9,7 +9,9 @@ class TesseractOCR(OCR):
 
 	def initialize(self):
 		''' Initialize Tesseract and load it up for speed '''
+		print("get_available_tools")
 		tools = pyocr.get_available_tools()
+		print("get_available_tools", tools)
 		if len(tools) == 0:
 			print("No tools found, do you have Tesseract installed?")
 			sys.exit(1)

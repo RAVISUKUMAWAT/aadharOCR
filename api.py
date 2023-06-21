@@ -155,7 +155,7 @@ class AadharOCR():
 		else:
 			logger.good("Performing OCR")
 			ocr_results = self.OCR.ocr(cropped_images)
-			#print(ocr_results)
+			print(ocr_results)
 			k=[]
 			v=[]
 			

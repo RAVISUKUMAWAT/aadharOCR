@@ -18,6 +18,7 @@ class DarknetClassifier(Classifier):
 			proc (pexpect process), which we use to interact with the running darknet process '''
 			command = DARKNET_BINARY_LOCATION + " detector test " + DARKNET_DATA_FILE + " " + DARKNET_CFG_FILE \
 				+ " " + DARKNET_WEIGHTS + " -thresh " + str(DARKNET_THRESH) + " -ext_output -dont_show"
+			print(command)
 			self.proc = pexpect.spawn(command)
 			self.proc.expect('Enter Image Path:')
 		except Exception as e:
