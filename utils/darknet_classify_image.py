@@ -21,7 +21,8 @@ class DarknetClassifier(Classifier):
 			print(command)
 			self.proc = pexpect.spawn(command)
 			self.proc.expect('Enter Image Path:')
-		except Exception as e:
+		except pexpect.exceptions.ExceptionPexpect as e:
+			# Handle other pexpect-related exceptions
 			print("An error occurred:", str(e))
 
 	def classify_image(self, image:str) -> str:
