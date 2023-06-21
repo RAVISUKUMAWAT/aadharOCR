@@ -51,7 +51,7 @@ if DARKNET:
 	DARKNET_THRESH    = args.DARKNET_THRESH
 	DARKNET_DATA_FILE = 'data/names.list'
 	DARKNET_CFG_FILE  = 'data/custom-yolov4-tiny-detector.cfg'
-	DARKNET_WEIGHTS   = 'data/custom-yolov4-tiny-detector_best.weights'
+	DARKNET_WEIGHTS   = 'data/custom-yolov4-tiny-detector_final.weights'
 	
 #######################################################################
 
