@@ -1,0 +1,34 @@
+# Python and Flask related files
+*.pyc
+__pycache__/
+instance/
+*.egg-info/
+*.egg
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# IDE and editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.swp
+*.out
+
+# Log files
+*.log
+
+# Database files
+db.sqlite3
+
+# Static files
+temp/
