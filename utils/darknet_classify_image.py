@@ -40,8 +40,11 @@ class DarknetClassifier(Classifier):
 				res = self.proc.before
 				print("res", res)
 				return res.decode('utf-8')
+			except pexpect.EOF:
+				print("Reached end of file (EOF).")
+			except pexpect.TIMEOUT:
+				print("Timeout occurred.")
 			except Exception as e:
-				print("failed 2")
 				print("An error occurred:", str(e))
 			
 	def extract_info(self, line:str) -> Tuple:
