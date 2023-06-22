@@ -34,7 +34,7 @@ make
 if [ -f darknet ]; then
   echo "Darknet executable generated successfully."
    # Execute the darknet command
-  ./darknet detector test /Users/vishalkumawat/spacy-ai/server/yolo/obj.names /Users/vishalkumawat/spacy-ai/server/yolo/custom-yolo.cfg /Users/vishalkumawat/spacy-ai/server/yolo/custom-yolo.weights -thresh 0.1 -dont_show temp/aadhar3.jpg
+  # ./darknet detector test /Users/vishalkumawat/spacy-ai/server/yolo/obj.names /Users/vishalkumawat/spacy-ai/server/yolo/custom-yolo.cfg /Users/vishalkumawat/spacy-ai/server/yolo/custom-yolo.weights -thresh 0.1 -dont_show temp/aadhar3.jpg
 
 else
   echo "Failed to generate Darknet executable."

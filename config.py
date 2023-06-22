@@ -43,9 +43,9 @@ TESSERACT = 't'
 
 if DARKNET:
 	if args.DARKNET_BINARY_LOCATION == None:
-		DARKNET_BINARY_LOCATION = "./darknet"
+		DARKNET_BINARY_LOCATION = "./darknet/darknet"
 	else:
-		DARKNET_BINARY_LOCATION = "./dartnet"
+		DARKNET_BINARY_LOCATION = "./dartnet/darknet"
 
 	#### Change the following attributes if you move the files/weights ####
 	DARKNET_THRESH    = args.DARKNET_THRESH
