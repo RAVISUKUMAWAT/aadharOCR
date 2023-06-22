@@ -20,6 +20,7 @@ class DarknetClassifier(Classifier):
 				+ " " + DARKNET_WEIGHTS + " -thresh " + str(DARKNET_THRESH) + " -ext_output -dont_show"
 			print(command)
 			self.proc = pexpect.spawn(command)
+			print("command", command)
 			self.proc.expect('Enter Image Path:')
 		except Exception as e:
 			print("failed 1")
