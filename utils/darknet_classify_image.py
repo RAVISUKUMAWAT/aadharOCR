@@ -22,22 +22,28 @@ class DarknetClassifier(Classifier):
 			self.proc = pexpect.spawn(command)
 			self.proc.expect('Enter Image Path:')
 		except Exception as e:
+			print("failed 1")
 			print("An error occurred:", str(e))
 
 	def classify_image(self, image:str) -> str:
-		''' Classifies a given image. Simply provide the name (string) of the image, and the proc to do it on.
-		Input:
-			image (string)   - name of the saved image file
-			self.proc (proc)      - Pexpect proc to interact with
-		Return:
-			Returns the output from darknet, which gives the location of each bounding box. '''
-		print("image")
-		self.proc.sendline(image)
-		self.proc.expect('Enter Image Path:', timeout=90)
-		print("sendline")
-		res = self.proc.before
-		print(res)
-		return res.decode('utf-8')
+			try: 
+				''' Classifies a given image. Simply provide the name (string) of the image, and the proc to do it on.
+				Input:
+					image (string)   - name of the saved image file
+					self.proc (proc)      - Pexpect proc to interact with
+				Return:
+					Returns the output from darknet, which gives the location of each bounding box. '''
+				print("image")
+				self.proc.sendline(image)
+				self.proc.expect('Enter Image Path:', timeout=90)
+				print("sendline")
+				res = self.proc.before
+				print(res)
+				return res.decode('utf-8')
+			except Exception as e:
+				print("failed 2")
+				print("An error occurred:", str(e))
+			
 	def extract_info(self, line:str) -> Tuple:
 		''' Extracts the information from a single line that contains a label.
 		Input: line (string), a line that already contains the label
