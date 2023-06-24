@@ -122,10 +122,10 @@ class AadharOCR():
 		#lines=str(coords).split('\n')
 		inf=[]
 		for line in str(coords).split('\n'):
-			if "sign" in line:
-				continue
-			if "photo" in line:
-				continue
+			# if "sign" in line:
+			# 	continue
+			# if "photo" in line:
+			# 	continue
 			if 'left_x' in line:
 				info=line.split()
 				left_x = int(info[3])
@@ -211,18 +211,24 @@ def upload_file():
 
     if not allowed_file(file.filename):
         return jsonify({'error': 'Invalid file type'}), 400
-    
+    time1 = time.time();
     image = Image.open(file)
     file_path = f"temp/{file.filename}"
     image.save(file_path)
+    time2 = time.time();
+    print("save image: " + str(time2-time1))
 
     extracter = AadharOCR()
     result=extracter.find_and_classify(file_path)
+    time3 = time.time();
+    print("result get: " + str(time3-time1))
     remove_file(file_path)
     print(result)
     if result==None:
         return jsonify({'error': 'Not found'}), 404
     data = {class_mapping[int(key)]: value for key, value in result.items()}
+    time4 = time.time();
+    print("response get: " + str(time4-time1))
     return jsonify({'data': data}), 200
 
 if __name__ == '__main__':
