@@ -29,9 +29,9 @@ class OCR(ABC):
 			t.start()
 			threads.append(t)
 			threadNum += 1
-
 		for t in threads:
 			t.join()
+			print("main method finsh")
 		i = 0
 		for result in threadResults:
 			results.append((images[i][0], result))
