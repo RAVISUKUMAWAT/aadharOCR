@@ -9,6 +9,7 @@ import time
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import requests
 
 PYTHON_VERSION = sys.version_info[0]
 OS_VERSION = os.name
@@ -102,8 +103,6 @@ class AadharOCR():
 			logger.fatal("Init tabcomplete")
 		if self.init_classifier() != 0:
 			logger.fatal("Init Classifier")
-		if self.init_ocr() != 0:
-			logger.fatal("Init OCR")
 	
 
 	def find_and_classify(self, filename):
@@ -118,14 +117,10 @@ class AadharOCR():
 		logger.good("Classifying Image")
 		
 		coords = self.classifier.classify_image(filename)
-		print(coords)
+		print("coords", coords)
 		#lines=str(coords).split('\n')
 		inf=[]
 		for line in str(coords).split('\n'):
-			# if "sign" in line:
-			# 	continue
-			# if "photo" in line:
-			# 	continue
 			if 'left_x' in line:
 				info=line.split()
 				left_x = int(info[3])
@@ -138,8 +133,8 @@ class AadharOCR():
 
 		# ----------------------------Crop Image-------------------------------------------#
 		logger.good("Finding required text")
-		cropped_images = self.locate_asset(filename, self.classifier, lines=coords)
-		
+		cropped_area = self.locate_asset(filename, self.classifier, lines=coords)
+		print("cropped_area", cropped_area)
 		
 		time2 = time.time()
 		
@@ -148,37 +143,39 @@ class AadharOCR():
 		#----------------------------Perform OCR-------------------------------------------#
 		
 		ocr_results = None
+		response = None
+		ocr_results = []
 		
-		if cropped_images == []:
+		if cropped_area == []:
 			logger.bad("No text found!")
 			return None 	 
 		else:
 			logger.good("Performing OCR")
-			ocr_results = self.OCR.ocr(cropped_images)
-			print(ocr_results)
+			try:
+				url = 'http://127.0.0.1:3000/ocr'
+				files = {'file': open(filename, 'rb')}
+				data = {'cropped_area': cropped_area}
+				
+				response = requests.post(url, files=files, data=data)
+				result = response.json()
+				if result['data'] != []:
+					ocr_results = result['data']
+			except Exception as e:
+				print("An error occurred:", str(e))
+
 			k=[]
 			v=[]
 			
-			
-			fil=filename+'-ocr'
-			#with open(fil, 'w+') as f:
 			for i in range(len(ocr_results)):
-					
-							v.append(ocr_results[i][1])
-							k.append(inf[i][0][:-1])
-							
-			#k.insert(0,'Filename')
-			#v.insert(0,filename)
+				v.append(ocr_results[i][1])
+				k.append(inf[i][0][:-1])
 			t=dict(zip(k, v))
-			
 
-		
 		time3 = time.time()
 		print("OCR Time: " + str(time3-time2))
 
 		end = time.time()
 		logger.good("Elapsed: " + str(end-start))
-		print(t)
 		return t
 		
 		
@@ -212,23 +209,22 @@ def upload_file():
 
     if not allowed_file(file.filename):
         return jsonify({'error': 'Invalid file type'}), 400
-    time1 = time.time();
+    time1 = time.time()
     image = Image.open(file)
     file_path = f"temp/{file.filename}"
     image.save(file_path)
-    time2 = time.time();
+    time2 = time.time()
     print("save image: " + str(time2-time1))
 
     extracter = AadharOCR()
     result=extracter.find_and_classify(file_path)
-    time3 = time.time();
+    time3 = time.time()
     print("result get: " + str(time3-time1))
-    remove_file(file_path)
-    print(result)
+    # remove_file(file_path)
     if result==None:
         return jsonify({'error': 'Not found'}), 404
     data = {class_mapping[int(key)]: value for key, value in result.items()}
-    time4 = time.time();
+    time4 = time.time()
     print("response get: " + str(time4-time1))
     return jsonify({'data': data}), 200
 

@@ -4,7 +4,7 @@ import utils.logger as logger
 #from utils.rotate import rotate
 from config import *
 from typing import Tuple, List
-# import sys
+import sys
 import cv2
 
 i = 0
@@ -51,7 +51,7 @@ def locate_asset(self, image, classifier, lines="") -> List:
 			#print(line)
 			area = classifier.extract_info(line)
 			# Open image
-			cropped_images.append((area, crop_image(image, area)))
+			cropped_images.append((area))
 		
 	if cropped_images == []:
 		logger.bad("No label found in image.")

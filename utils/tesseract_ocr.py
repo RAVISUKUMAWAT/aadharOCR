@@ -22,8 +22,10 @@ class TesseractOCR(OCR):
 
 	def ocr_one_image(self, area, image, threadList=-1, threadNum=None):
 		print("Starting image...")
+		print("image", image)
 		txt = pytesseract.image_to_string(image, config="--psm 6 --oem 3")
 		txt = txt.replace('\n', '')
+		print(txt)
 		# txt = self.tool.image_to_string(image, lang=self.langs[0], builder=pyocr.builders.TextBuilder())
 		print("==RESULT==" + str(area) + "\n" + txt + "\n==========================")
 		if threadList != -1:
