@@ -224,7 +224,7 @@ def upload_file():
     result=extracter.find_and_classify(file_path)
     time3 = time.time()
     print("result get: " + str(time3-time1))
-    # remove_file(file_path)
+    remove_file(file_path)
     if result==None:
         return jsonify({'error': 'Not found'}), 404
     data = {class_mapping[int(key)]: value for key, value in result.items()}

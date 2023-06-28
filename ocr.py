@@ -149,6 +149,7 @@ def upload_file():
         cropped_img = crop_image(file_path, cropped_area)
         cropped_images.append((cropped_area, cropped_img))
     result=extracter.find_and_classify(cropped_images)
+    remove_file(file_path)
     return jsonify({'data': result}), 200
 
 if __name__ == '__main__':
