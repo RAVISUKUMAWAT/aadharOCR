@@ -172,7 +172,7 @@ class AadharOCR():
 			
 			for i in range(len(ocr_results)):
 				v.append(ocr_results[i][1])
-				k.append(inf[i][0][:-1])
+				k.append(class_mapping[int(inf[i][0][:-1])])
 			t=dict(zip(k, v))
 
 		time3 = time.time()
@@ -227,10 +227,9 @@ def upload_file():
     remove_file(file_path)
     if result==None:
         return jsonify({'error': 'Not found'}), 404
-    data = {class_mapping[int(key)]: value for key, value in result.items()}
     time4 = time.time()
     print("response get: " + str(time4-time1))
-    return jsonify({'data': data}), 200
+    return jsonify({'data': result}), 200
 
 if __name__ == '__main__':
     app.run(port=4000)
