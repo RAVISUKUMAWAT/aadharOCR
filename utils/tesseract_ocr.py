@@ -1,10 +1,10 @@
 from utils.ocr import OCR
+import pytesseract
 # import pyocr
 # import pyocr.builders
 # import sys
 # from PIL import Image
 # from typing import Tuple
-import pytesseract
 
 class TesseractOCR(OCR):
 
