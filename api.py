@@ -232,4 +232,4 @@ def upload_file():
     return jsonify({'data': result}), 200
 
 if __name__ == '__main__':
-    app.run(port=4000)
+    app.run(port=4000, host='0.0.0.0')
