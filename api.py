@@ -10,6 +10,7 @@ import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
+from dotenv import load_dotenv
 
 PYTHON_VERSION = sys.version_info[0]
 OS_VERSION = os.name
@@ -17,6 +18,9 @@ OS_VERSION = os.name
 app = Flask(__name__)
 
 CORS(app)
+load_dotenv()
+
+ocr_api = os.getenv('OCR_API')
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -152,7 +156,7 @@ class AadharOCR():
 		else:
 			logger.good("Performing OCR")
 			try:
-				url = 'http://127.0.0.1:3000/ocr'
+				url = f"{ocr_api}/ocr"
 				files = {'file': open(filename, 'rb')}
 				data = {'cropped_area': cropped_area}
 				
