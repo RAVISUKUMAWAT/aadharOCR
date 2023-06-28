@@ -198,7 +198,8 @@ def remove_file(file_path):
     if os.path.exists(file_path):
         # Delete the file
         os.remove(file_path)
-    return
+    if os.path.exists('bad.list'):
+	    os.remove('bad.list')
 		
 @app.route('/upload', methods=['POST'])
 def upload_file():

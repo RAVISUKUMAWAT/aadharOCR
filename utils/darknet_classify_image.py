@@ -37,7 +37,6 @@ class DarknetClassifier(Classifier):
 				print("image", image)
 				self.proc.sendline(image)
 				self.proc.expect('Enter Image Path:', timeout=90)
-				print("sendline")
 				res = self.proc.before
 				print("res", res)
 				return res.decode('utf-8')
