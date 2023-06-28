@@ -34,3 +34,4 @@ db.sqlite3
 temp/
 bad.list
 darknet
+wsgi.py
