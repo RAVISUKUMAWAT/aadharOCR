@@ -23,12 +23,12 @@ class TesseractOCR(OCR):
 
 	def ocr_one_image(self, area, image, threadList=-1, threadNum=None):
 		print("Starting image...")
-		print("image", image)
+		# print("image", image)
 		txt = pytesseract.image_to_string(image, lang='eng', config="--psm 6 --oem 3")
 		txt = re.sub(r'\n|\f|\t', '', txt)
-		print(txt)
+		# print(txt)
 		# txt = self.tool.image_to_string(image, lang=self.langs[0], builder=pyocr.builders.TextBuilder())
-		print("==RESULT==" + str(area) + "\n" + txt + "\n==========================")
+		# print("==RESULT==" + str(area) + "\n" + txt + "\n==========================")
 		if threadList != -1:
 			threadList[threadNum] = txt
 		return txt

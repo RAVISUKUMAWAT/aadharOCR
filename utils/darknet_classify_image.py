@@ -18,9 +18,9 @@ class DarknetClassifier(Classifier):
 			proc (pexpect process), which we use to interact with the running darknet process '''
 			command = DARKNET_BINARY_LOCATION + " detector test " + DARKNET_DATA_FILE + " " + DARKNET_CFG_FILE \
 				+ " " + DARKNET_WEIGHTS + " -thresh " + str(DARKNET_THRESH) + " -ext_output -dont_show"
-			print(command)
+			# print(command)
 			self.proc = pexpect.spawn(command)
-			print("command", command)
+			# print("command", command)
 			self.proc.expect('Enter Image Path:')
 		except Exception as e:
 			print("failed 1")
@@ -34,11 +34,11 @@ class DarknetClassifier(Classifier):
 					self.proc (proc)      - Pexpect proc to interact with
 				Return:
 					Returns the output from darknet, which gives the location of each bounding box. '''
-				print("image", image)
+				# print("image", image)
 				self.proc.sendline(image)
 				self.proc.expect('Enter Image Path:', timeout=90)
 				res = self.proc.before
-				print("res", res)
+				# print("res", res)
 				return res.decode('utf-8')
 			except pexpect.EOF:
 				print("Reached end of file (EOF).")

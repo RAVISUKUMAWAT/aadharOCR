@@ -121,7 +121,7 @@ class AadharOCR():
 		logger.good("Classifying Image")
 		
 		coords = self.classifier.classify_image(filename)
-		print("coords", coords)
+		# print("coords", coords)
 		#lines=str(coords).split('\n')
 		inf=[]
 		for line in str(coords).split('\n'):
