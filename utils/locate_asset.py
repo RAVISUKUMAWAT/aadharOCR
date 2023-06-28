@@ -1,27 +1,33 @@
-from PIL import Image
-from PIL import ImageFilter
+# from PIL import Image
+# from PIL import ImageFilter
 import utils.logger as logger
 #from utils.rotate import rotate
 from config import *
 from typing import Tuple, List
-import sys
+# import sys
+import cv2
+
 i = 0
-def crop_image(image, area:Tuple) -> object:
+def crop_image(image_path, area:Tuple) -> object:
 	''' Uses PIL to crop an image, given its area.
 	Input:
 		image - PIL opened image
 		Area - Coordinates in tuple (xmin, ymax, xmax, ymin) format '''
-	img1 = Image.open(image)
-	img = img1.crop(area)
-	basewidth = 200
-	wpercent = (basewidth/float(img.size[0]))
-	hsize = int((float(img.size[1])*float(wpercent)))
-	cropped_image = img.resize((basewidth,hsize), Image.ANTIALIAS)
-	global i
+	# img1 = Image.open(image)
+	# img = img1.crop(area)
+	# basewidth = 200
+	# wpercent = (basewidth/float(img.size[0]))
+	# hsize = int((float(img.size[1])*float(wpercent)))
+	# cropped_image = img.resize((basewidth,hsize), Image.ANTIALIAS)
+	# global i
 	# cropped_image.save("r" + str(i) + ".jpg", "JPEG",dpi=(300,300))
-	i += 1
+	# i += 1
+
+	image = cv2.imread(image_path)
+	x1, y1, x2, y2 = area
+	cropped_img = image[y1:y2, x1:x2]
 	
-	return cropped_image
+	return cropped_img
 
 def locate_asset(self, image, classifier, lines="") -> List:
 	''' Determines where an asset is in the picture, returning
